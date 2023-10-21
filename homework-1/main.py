@@ -24,6 +24,18 @@ try:
 							"notes)"
 							"VALUES (%s, %s, %s, %s, %s, %s)", row)
 
+		with connect.cursor() as cursor:
+			with open(CUSTOMERS, 'r') as csvfile:
+				reader = csv.reader(csvfile)
+				next(reader)
+				for row in reader:
+					cursor.execute(
+							"INSERT INTO customers (customer_id,"
+							"company_name,"
+							"contact_name)"
+							"VALUES (%s, %s, %s)", row)
+
+
 
 finally:
 	connect.close()

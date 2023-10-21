@@ -35,7 +35,18 @@ try:
 							"contact_name)"
 							"VALUES (%s, %s, %s)", row)
 
-
+		with connect.cursor() as cursor:
+			with open(ORDERS, 'r') as csvfile:
+				reader = csv.reader(csvfile)
+				next(reader)
+				for row in reader:
+					cursor.execute(
+							"INSERT INTO orders (order_id,"
+							"customer_id,"
+							"employee_id,"
+							"order_date,"
+							"ship_city)"
+							"VALUES (%s, %s, %s, %s, %s)", row)
 
 finally:
 	connect.close()
